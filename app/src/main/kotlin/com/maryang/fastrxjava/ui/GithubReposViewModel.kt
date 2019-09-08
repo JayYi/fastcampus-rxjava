@@ -2,6 +2,7 @@ package com.maryang.fastrxjava.ui
 
 import com.maryang.fastrxjava.data.repository.GithubRepository
 import com.maryang.fastrxjava.entity.GithubRepo
+import com.maryang.fastrxjava.util.applySchedulersExtension
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,15 +22,14 @@ class GithubReposViewModel {
                         it.map { repo ->
                             checkStar(repo.owner.userName, repo.name)
                                 .doOnComplete { repo.star = true }
-                                .onErrorComplete()
+                                .onErrorComplete() // 에러가 나더라도 정상적으로 동작하도록 선언
                         }
                     ).subscribe {
                         emitter.onSuccess(it)
                     }
                 }, {})
         }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .applySchedulersExtension()
     }
 
     private fun checkStar(owner: String, repo: String): Completable =
