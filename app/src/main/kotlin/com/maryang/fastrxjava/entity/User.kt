@@ -1,10 +1,11 @@
 package com.maryang.fastrxjava.entity
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
 data class User(
-    val id: Long,
+    override val id: Long,
     @SerializedName("login")
     val userName: String,
     val name: String,
@@ -19,4 +20,4 @@ data class User(
     val createdAt: Date,
     @SerializedName("updated_at")
     val updatedAt: Date
-)
+) : Identifier, Parcelable
