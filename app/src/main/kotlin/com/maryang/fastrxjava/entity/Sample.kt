@@ -1,5 +1,5 @@
 package com.maryang.fastrxjava.entity
 
-interface Identifier {
-    val id: Long
+class Sample {
+    var data: Int = 0
 }
