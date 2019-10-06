@@ -17,4 +17,14 @@ abstract class BaseActivity : AppCompatActivity() {
             onBackPressed()
         return true
     }
+
+
+    abstract class BaseViewModelActivity : BaseActivity() {
+        abstract val viewModel: BaseViewModel
+
+        override fun onDestroy() {
+            super.onDestroy()
+            viewModel.onDestroy()
+        }
+    }
 }
